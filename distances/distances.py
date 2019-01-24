@@ -1,6 +1,10 @@
 import numpy as np
 
+from numba import double
+from numba.decorators import jit, autojit
 
+
+@jit(nopython=True)
 def distance_great_circle(u,v):
     """ Fast great-circle path distance using Haversine formula
     (at least faster than geopy.distance.distance but less accurate)
@@ -17,4 +21,3 @@ def distance_great_circle(u,v):
     C = np.sin(lat_1)*np.sin(lat_2) + np.cos(lat_1)*np.cos(lat_2)*np.cos(d_lon)
 
     return np.arctan(np.sqrt(A + B) / C)
-

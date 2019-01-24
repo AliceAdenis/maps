@@ -7,13 +7,14 @@ from scipy.spatial.distance import pdist, cdist, squareform
 
 
 class RBF(StationaryKernelMixin, NormalizedKernelMixin, Kernel):
-    """Radial-basis function kernel (aka squared-exponential kernel).
+    """ Adapted from sklearn.gaussian_process.kernels.py (sklearn v 0.19.2)
+    Radial-basis function kernel (aka squared-exponential kernel).
     The RBF kernel is a stationary kernel. It is also known as the
     "squared exponential" kernel. It is parameterized by a length-scale
     parameter length_scale>0, which can either be a scalar (isotropic variant
     of the kernel) or a vector with the same number of dimensions as the inputs
     X (anisotropic variant of the kernel). The kernel is given by:
-    k(x_i, x_j) = exp(-1 / 2 d(x_i / length_scale, x_j / length_scale)^2)
+    k(x_i, x_j) = exp(- d(x_i, x_j)^2 / (2 * length_scale^2))
     This kernel is infinitely differentiable, which implies that GPs with this
     kernel as covariance function have mean square derivatives of all orders,
     and are thus very smooth.
